@@ -1,0 +1,32 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cv-view
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "-65"
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: commvault
+roleRef:
+  kind: Role
+  name: cv-view
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cvpatcher
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "-65"
+subjects:
+- kind: ServiceAccount
+  name: cvpatcher-sa
+  namespace: commvault
+roleRef:
+  kind: Role
+  name: cvpatcher
+  apiGroup: rbac.authorization.k8s.io

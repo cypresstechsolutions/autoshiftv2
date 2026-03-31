@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: accessnode
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
+spec:
+  selector:
+    app: accessnode
+  ports:
+  - name: https
+    port: 443
+    targetPort: 443
+  type: ClusterIP

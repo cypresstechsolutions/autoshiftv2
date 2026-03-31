@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accessnode
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "30"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accessnode
+  template:
+    metadata:
+      labels:
+        app: accessnode
+    spec:
+      serviceAccountName: cvpatcher-sa
+      containers:
+      - name: accessnode
+        image: commvault/accessnode:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 443
+        volumeMounts:
+        - name: certsandlogs
+          mountPath: /opt/commvault/iDataAgent/jobResults
+        - name: jobresults
+          mountPath: /opt/commvault/iDataAgent/jobResults
+      volumes:
+      - name: certsandlogs
+        persistentVolumeClaim:
+          claimName: accessnode-certsandlogs
+      - name: jobresults
+        persistentVolumeClaim:
+          claimName: accessnode-jobresults

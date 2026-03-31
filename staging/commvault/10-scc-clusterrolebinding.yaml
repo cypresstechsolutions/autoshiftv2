@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: commvault-anyuid-binding
+  annotations:
+    argocd.argoproj.io/sync-wave: "-45"
+subjects:
+- kind: ServiceAccount
+  name: cvpatcher-sa
+  namespace: commvault
+- kind: ServiceAccount
+  name: commvault-sa
+  namespace: commvault
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: use-anyuid-scc

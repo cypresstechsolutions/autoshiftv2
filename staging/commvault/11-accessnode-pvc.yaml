@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: accessnode-certsandlogs
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: odf-storage
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: accessnode-jobresults
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: odf-storage

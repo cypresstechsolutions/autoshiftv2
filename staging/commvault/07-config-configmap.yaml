@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cv-config
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "-60"
+data:
+  csOrGatewayHostName: ""

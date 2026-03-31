@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: commvault-crb
+  annotations:
+    argocd.argoproj.io/sync-wave: "-85"
+  labels:
+    app.kubernetes.io/managed-by: gitops
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin   # POC only – replace with custom ClusterRole in prod
+subjects:
+- kind: ServiceAccount
+  name: commvault-sa
+  namespace: commvault

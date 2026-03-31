@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cvpatcher
+  namespace: commvault
+  annotations:
+    argocd.argoproj.io/sync-wave: "-55"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cvpatcher
+  template:
+    metadata:
+      labels:
+        app: cvpatcher
+    spec:
+      serviceAccountName: cvpatcher-sa
+      containers:
+      - name: cvpatcher
+        image: commvault/cvpatcher:latest
+        imagePullPolicy: Always
